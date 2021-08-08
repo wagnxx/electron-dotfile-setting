@@ -6,17 +6,21 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const rendererConfig = {
   mode: process.env.NODE_ENV,
-  devtool: process.env.NODE_ENV === 'development' ? 'inline-source-map' : undefined,
-  devServer: process.env.NODE_ENV === 'development' ? {
-    contentBase: '../dist',
-    port: 5000,
-    hot: true,
-    quiet: true,
-  } : undefined,
-  entry: path.join(__dirname, '../src/renderer/index.jsx'),
+  devtool:
+    process.env.NODE_ENV === 'development' ? 'inline-source-map' : undefined,
+  devServer:
+    process.env.NODE_ENV === 'development'
+      ? {
+          contentBase: '../dist',
+          port: 5000,
+          hot: true,
+          quiet: true
+        }
+      : undefined,
+  entry: { index: path.join(__dirname, '../src/renderer/index.jsx') },
   output: {
     filename: '[name].js',
-    path: path.join(__dirname, '../dist/renderer'),
+    path: path.resolve(__dirname, '../dist/renderer')
   },
   module: {
     rules: [
@@ -33,26 +37,26 @@ const rendererConfig = {
       },
       {
         test: /\.ts[x]?$/,
-        loader: "awesome-typescript-loader",
-        exclude: /node_modules/,
+        loader: 'awesome-typescript-loader',
+        exclude: /node_modules/
       },
       {
         test: /\.css$/,
-        use: ['style-loader', 'css-loader'],
+        use: ['style-loader', 'css-loader']
       },
       {
         test: /\.scss$/,
-        loaders: ['style-loader', 'css-loader', 'sass-loader'],
+        loaders: ['style-loader', 'css-loader', 'sass-loader']
       },
       {
-        enforce: "pre",
+        enforce: 'pre',
         test: /\.ts[x]$/,
-        loader: "source-map-loader"
+        loader: 'source-map-loader'
       },
       {
         test: /\.(js|jsx)$/,
         use: 'babel-loader',
-        exclude: /node_modules/,
+        exclude: /node_modules/
       }
     ]
   },
@@ -61,10 +65,12 @@ const rendererConfig = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: path.join(__dirname, '../src/renderer/index.html'),
+      template: path.join(__dirname, '../src/renderer/index.html')
     }),
-    new webpack.NoEmitOnErrorsPlugin(),
-  ]
+    new webpack.NoEmitOnErrorsPlugin()
+  ],
+  target: 'electron-renderer'
+  // target:'node'
 };
 
 if (process.env.NODE_ENV === 'development') {

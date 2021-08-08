@@ -2,11 +2,12 @@
   "name": "torre-electron-react",
   "version": "1.0.0",
   "description": "a template for electron with react",
-  "main": "dist/main/main.js",
-  "author": "junso",
+  "main": "src/main/main.js",
+  "author": "wagnxx <wagnxx@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "build:mac": "cross-env BUILD_TARGET=mac node script/build.js",
+    "build:mac": "cross-env BUILD_TARGET=MAC node script/build.js",
+    "build:linux": "cross-env BUILD_TARGET=LINUX node script/build.js",
     "build:clean": "cross-env BUILD_TARGET=clean node script/build.js",
     "dev": "cross-env NODE_ENV=development node ./script/dev.js",
     "pack": "npm run pack:main && npm run pack:renderer",
@@ -16,13 +17,17 @@
     "lint:fix": "eslint --ext .js,.jsx -f ./node_modules/eslint-friendly-formatter --fix src"
   },
   "dependencies": {
-    "electron": "^4.1.1",
-    "node-sass": "^4.11.0",
     "react": "^16.8.5",
-    "react-dom": "^16.8.5",
-    "sass-loader": "^7.1.0"
+    "react-dom": "^16.8.5"
   },
   "devDependencies": {
+    "electron": "^4.1.1",
+    "del": "^4.0.0",
+    "electron-builder": "^20.39.0",
+    "electron-debug": "^2.1.0",
+    "electron-devtools-installer": "^2.2.4",
+    "sass-loader": "^7.1.0",
+    "node-sass": "^4.11.0",
     "@babel/core": "^7.4.0",
     "@babel/preset-env": "^7.4.2",
     "@babel/preset-react": "^7.0.0",
@@ -36,10 +41,6 @@
     "clean-webpack-plugin": "^2.0.1",
     "cross-env": "^5.2.0",
     "css-loader": "^2.1.1",
-    "del": "^4.0.0",
-    "electron-builder": "^20.39.0",
-    "electron-debug": "^2.1.0",
-    "electron-devtools-installer": "^2.2.4",
     "eslint": "^5.15.3",
     "eslint-config-airbnb": "^17.1.0",
     "eslint-config-google": "^0.12.0",

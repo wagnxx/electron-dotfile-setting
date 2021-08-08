@@ -1,0 +1,45 @@
+.app {
+  display: flex;
+  height: 100%;
+  box-sizing: border-box;
+  border: 1px solid #eee;
+
+  .sider {
+    position: relative;
+    flex: 0 1 200px;
+    // border: 1px solid #ddd;
+    // min-width: 80px;
+
+    .action {
+      position: absolute;
+      bottom: 0;
+      display: block;
+      width: 100%;
+      // padding: 8px 0;
+      // box-sizing: border-box;
+      input{
+        width: 100%;
+        box-sizing: border-box;
+        margin-bottom: 10px;
+        padding: 8px 0;
+
+      }
+      
+      button {
+        width: 100%;
+        padding: 8px 0;
+      }
+    }
+  }
+
+  .content {
+    // border: 1px solid #f00;
+    flex: 1 1 300px;
+    padding: 7px;
+    background-color: #eee;
+  }
+
+  .other {
+    flex: 0 1 200px;
+  }
+}

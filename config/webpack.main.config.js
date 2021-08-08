@@ -9,7 +9,7 @@ let mainConfig = {
     main: path.join(__dirname, '../src/main/main.js')
   },
   externals: [
-    ...Object.keys(dependencies || {})
+    // ...Object.keys(dependencies || {})
   ],
   module: {
     rules: [

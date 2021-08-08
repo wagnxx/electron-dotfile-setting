@@ -1,10 +1,12 @@
+// eslint-disable-next-line import/no-extraneous-dependencies
 const { app, BrowserWindow } = require('electron');
 const path = require('path');
 
 let mainWindow;
-const url = process.env.NODE_ENV === 'development'
-  ? 'http://localhost:5000'
-  : `file://${path.join(__dirname, '../renderer/index.html')}`;
+const url =
+  process.env.NODE_ENV === 'development'
+    ? 'http://localhost:5000'
+    : `file://${path.join(__dirname, '../renderer/index.html')}`;
 
 function createWindow() {
   /**
@@ -21,6 +23,11 @@ function createWindow() {
     // titleBarStyle: 'customButtonsOnHover',
     // frame: false,
     minWidth: 1000,
+    webPreferences: {
+      nodeIntegration: true,
+      enableRemoteModule: true
+      // contextIsolation: false
+    }
   });
 
   mainWindow.loadURL(url);

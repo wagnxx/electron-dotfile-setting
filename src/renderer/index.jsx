@@ -1,7 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
-import './index.css';
-import './style.scss';
+import './index.scss';
+import MenuContextProvider from './contexts/memuContext';
 
-ReactDOM.render(<App />, document.getElementById('root'));
+
+
+ReactDOM.render(
+  <MenuContextProvider>
+    <App />
+  </MenuContextProvider>,
+  document.getElementById('root'));
