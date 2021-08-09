@@ -2,7 +2,7 @@
   "name": "torre-electron-react",
   "version": "1.0.0",
   "description": "a template for electron with react",
-  "main": "src/main/main.js",
+  "main": "dist/main/main.js",
   "author": "wagnxx <wagnxx@gmail.com>",
   "license": "MIT",
   "scripts": {

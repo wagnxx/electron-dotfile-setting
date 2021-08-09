@@ -6,6 +6,7 @@ directories:
 # mac:
 #   icon: ../build/icon/icon.ico
 linux:
+  icon: ../build/icons/dot.png
   target:
     - AppImage
     - deb

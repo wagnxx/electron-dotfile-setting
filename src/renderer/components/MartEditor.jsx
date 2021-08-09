@@ -12,12 +12,15 @@ export default function MartEditor() {
 
   const [keyActionOpend, setKeyActionOpend] = useState(false)
 
-  const { currentFile,
+  const { currentFile, menuList,
     addKeyToContent,
     setContentItemByKey,
-    setMenuItemPath
+    setMenuItemPath,
+    batchSetContent,
+    cleanContents
   } = useMenuContext();
   const contents = currentFile.contents || [];
+  // const [contents, setContents] = useState([])
 
   /**
    * content: 
@@ -45,6 +48,9 @@ export default function MartEditor() {
     const key = 'value'
     setContentItemByKey({ key, value, index })
   }
+  const cleanHandle = e => {
+    cleanContents()
+  }
   const applyHandle = e => {
     console.log(contents)
     if (contents.length) {
@@ -57,14 +63,53 @@ export default function MartEditor() {
     }
   }
   const writeToTargetFile = (data) => {
-    const filepath =path.join(homedir, currentFile.path);
+    const filepath = path.join(homedir, currentFile.path);
     fs.writeFile(filepath, data, () => {
       console.log('write success!!');
       window.location.reload()
     })
   }
+  const storageFileDataToLoacal = data => {
+    let _data = data.split('\n');
+
+    _data = _data
+      .map(trim)
+      .filter(item => item !== '')
+      .map(item => {
+        let disabled = false;
+        if (item.indexOf('#') === 0) {
+          disabled = true;
+        }
+        return {
+          disabled,
+          item: item
+        }
+      })
+      .map(item => {
+        let disabled = item.disabled;
+        let key, value;
+        let arr = item.item.split('=');
+        key = arr[0];
+        value = arr[1];
+        if (disabled) {
+          key = key.replace(/^#\s+/, '')
+        }
+
+        return { disabled, key, value }
+      })
+
+    console.log('readFile data : ', _data)
+
+    function trim(str) {
+      return str.replace(/^(\s+)|\1$/, '')
+        .replace(/^(\s+)|\1$/, '')
+    }
+
+    batchSetContent(_data)
+  }
+
   useEffect(() => {
-    const filepath =path.join(homedir, currentFile.path);
+    const filepath = path.join(homedir, currentFile.path);
     fs.access(filepath, 0, (err) => {
       if (err) {
         setFileIsExist(false);
@@ -72,17 +117,20 @@ export default function MartEditor() {
       }
       setFileIsExist(true);
     })
-    console.log('filePath',filepath)
+    console.log('filePath', filepath)
     fs.readFile(filepath, { encoding: 'utf8', flag: 'a+' }, (err, data) => {
       if (err) {
         console.log('read file Error : ', err);
         return;
       }
-      console.log('readFile data : ',data.split('\n'))
+
+      if (!contents.length) {
+        storageFileDataToLoacal(data)
+      }
       setFileData(data);
     })
 
-  },[currentFile.path])
+  }, [currentFile.path])
   return (
     <div className="mart-editor">
       <h3>MartEditor</h3>
@@ -100,14 +148,14 @@ export default function MartEditor() {
         <table>
           <thead>
             <tr>
-              <td>Disabled</td>
+              <td># ?</td>
               <td>Key Name</td>
               <td>Value</td>
             </tr>
           </thead>
           <tbody>
             {
-              !contents.length ? ''
+              !contents.length ? 'no data'
                 :
                 contents.map((item, index) => {
                   return (
@@ -178,12 +226,12 @@ export default function MartEditor() {
       }
 
       <h3>Native File Preview</h3>
-      <div style={{whiteSpace:'pre-wrap',background:"#000",color:'#fff',padding:'10px 4px'}}>
+      <div style={{ whiteSpace: 'pre-wrap', background: "#000", color: '#fff', padding: '10px 4px' }}>
         {fileData}
       </div>
 
       <div className="keys-apply">
-        <button className="clean">Clean</button>
+        <button className="clean" onClick={cleanHandle}>Clean</button>
         <button className="apply" onClick={applyHandle}>Apply</button>
       </div>
     </div>

@@ -14,18 +14,26 @@ function createWindow() {
    * see https://electronjs.org/docs/api/browser-window#new-browserwindowoptions
    */
   mainWindow = new BrowserWindow({
+    width: 820,
     height: 563,
+    // minWidth: 500,
+    // minHeight: 563,
+    x: 0,
+    y:0,
     useContentSize: true,
-    width: 1000,
-    minHeight: 563,
+    resizable:false,
+    autoHideMenuBar: false,
+    title:'Dot File Setting ',
     // vibrancy: 'ultra-dark',
-    center: true,
+    // center: true,
     // titleBarStyle: 'customButtonsOnHover',
+    titleBarStyle: 'hidden',
     // frame: false,
-    minWidth: 1000,
+    icon:'./icons/dot.png',
     webPreferences: {
       nodeIntegration: true,
-      enableRemoteModule: true
+      enableRemoteModule: true,
+      // devTools: false,
       // contextIsolation: false
     }
   });

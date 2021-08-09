@@ -1,20 +1,40 @@
-.menu-list{
-  
-  ul{
+.menu-list {
+  ul {
     list-style: none;
     padding: 0;
     // border: 1px solid red;
     li {
-      border: 1px solid #ddd;
-      padding: 4px;
+      border: 1px solid #ccc;
+      padding: 5px 4px;
       background-color: #ddd;
-      
-      &:hover{
+
+      &:hover {
         background-color: #ccc;
         cursor: pointer;
       }
-      &.active{
+      &.active {
         background-color: #aaa;
+      }
+
+      position: relative;
+
+      &:not(:first-child):hover {
+        .del {
+          display: block;
+        }
+      }
+
+      .del {
+        display: none;
+        position: absolute;
+        right: 2px;
+        top: 0;
+        width: 30px;
+        height: 30px;
+        line-height: 30px;
+        background-color: #dadada;
+        text-align: center;
+        color: red;
       }
     }
   }

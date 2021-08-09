@@ -3,14 +3,19 @@ import './menu-list.scss'
 import { useMenuContext } from '../contexts/memuContext'
 export default function MenuList() {
 
-  const { menuList,setMenuListSelectedIndex,menuListSelectedIndex } = useMenuContext();
+  const { menuList, setMenuListSelectedIndex, menuListSelectedIndex, removeMenuItem } = useMenuContext();
   const checkedHandle = (item, index) => {
     if (item.checked) {
-      alert('已经选中了')
       return;
     }
     setMenuListSelectedIndex(index)
   }
+
+  const removeMenuItemHandle = (e, item, index) => {
+    e.stopPropagation()
+    removeMenuItem(item, index)
+  }
+
   return (
     <div className="menu-list">
       <h3>MenuList</h3>
@@ -19,9 +24,15 @@ export default function MenuList() {
           menuList.map((item, index) => (
             <li
               key={item.path} className={index === menuListSelectedIndex ? 'active' : ''}
-              onClick={e => checkedHandle(item, index)}
+              onClick={e => checkedHandle(item, index)
+              }
 
-            >{item.path}</li>
+
+            >{item.path}
+              <span className="del"
+                onClick={e => removeMenuItemHandle(e, item, index)}
+              >x</span>
+            </li>
           ))
         }
       </ul>

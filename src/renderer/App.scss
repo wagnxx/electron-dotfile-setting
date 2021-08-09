@@ -41,5 +41,14 @@
 
   .other {
     flex: 0 1 200px;
+    padding: 0 7px;
+    font-size: 12px;
+    ol{
+      // padding: 0 8px;
+      padding-inline-start: 14px;
+      list-style-type: upper-latin;
+      // list-style: none;
+
+    }
   }
 }

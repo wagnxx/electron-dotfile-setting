@@ -52,11 +52,15 @@
       border: none;
       font-weight: 600;
       color: #eee;
+      cursor: pointer;
       &.clean{
         background-color: #f95353;
       }
       &.apply{
         background-color:#3ea3f9;
+      }
+      &:hover{
+        transform: scale(1.1);
       }
     }
   }

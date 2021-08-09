@@ -26,9 +26,10 @@ async function startMain() {
 }
 
 async function start() {
-  // del.sync(['dist/main/*', 'dist/renderer/*']);
+  del.sync(['dist/main/*', 'dist/renderer/*']);
 
-  // await build();
+  await build();
+
  
   const config = jsYml.load(fs.readFileSync(path.join(__dirname, '../config/builder.config.yml')));
   const target = process.env.BUILD_TARGET || 'MAC'
